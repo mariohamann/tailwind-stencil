@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "start": "npm-run-all --parallel start:*",
-    "start:css": "NODE_ENV=development  tailwindcss -o src/tailwind.css --watch",
+    "start:css": "tailwindcss -o src/tailwind.css --watch",
     "start:stencil": "stencil build --dev --watch --serve",
     "build": "npm-run-all --parallel build:*",
     "build:css": "tailwindcss -o src/tailwind.css --minify",

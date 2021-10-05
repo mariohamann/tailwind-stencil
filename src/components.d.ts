@@ -6,6 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface ComponentWithShadow {
+    }
+    interface ComponentWithoutShadow {
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +26,18 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLComponentWithShadowElement extends Components.ComponentWithShadow, HTMLStencilElement {
+    }
+    var HTMLComponentWithShadowElement: {
+        prototype: HTMLComponentWithShadowElement;
+        new (): HTMLComponentWithShadowElement;
+    };
+    interface HTMLComponentWithoutShadowElement extends Components.ComponentWithoutShadow, HTMLStencilElement {
+    }
+    var HTMLComponentWithoutShadowElement: {
+        prototype: HTMLComponentWithoutShadowElement;
+        new (): HTMLComponentWithoutShadowElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +45,16 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "component-with-shadow": HTMLComponentWithShadowElement;
+        "component-without-shadow": HTMLComponentWithoutShadowElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface ComponentWithShadow {
+    }
+    interface ComponentWithoutShadow {
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +70,8 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "component-with-shadow": ComponentWithShadow;
+        "component-without-shadow": ComponentWithoutShadow;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +79,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "component-with-shadow": LocalJSX.ComponentWithShadow & JSXBase.HTMLAttributes<HTMLComponentWithShadowElement>;
+            "component-without-shadow": LocalJSX.ComponentWithoutShadow & JSXBase.HTMLAttributes<HTMLComponentWithoutShadowElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }

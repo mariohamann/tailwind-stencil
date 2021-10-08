@@ -3,8 +3,8 @@ name: Checks
 on: pull_request
 
 jobs:
-  install:
-    name: Install Node Modules
+  npm:
+    name:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
@@ -27,6 +27,7 @@ jobs:
         # we use npm ci for faster installation –> package-lock.json is the single source of noding truth
 
       - name: Install Dependencies
+        if: steps.npm.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Test

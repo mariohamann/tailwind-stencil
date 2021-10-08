@@ -13,6 +13,7 @@ jobs:
           node-version: 14
 
       - name: Cache node modules
+        id: cache
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
@@ -27,7 +28,7 @@ jobs:
         # we use npm ci for faster installation –> package-lock.json is the single source of noding truth
 
       - name: Install Dependencies
-        if: steps.npm.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Test
